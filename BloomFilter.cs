@@ -22,17 +22,29 @@ namespace BloomFilter
         {
             foreach (var func in hashFunctions)
             {
-                int hashCode = func.Invoke(item);
-                int position = hashCode / 2;
+                int hashCode = Math.Abs(func.Invoke(item)) % cap;
+                int indexInArray = hashCode / 8;
                 int byteIndex = hashCode % 8;
 
-                //TODO: bitwise shift to change bits inside byte 
+                byte temp = 0b00000001;
+                int amountToShift = 7 - byteIndex;
+                filter[indexInArray] |= (byte)(temp << amountToShift);
             }
         }
 
         public bool ProbablyContains(T item)
         {
+            foreach (var func in hashFunctions)
+            {
+                int hashCode = Math.Abs(func.Invoke(item)) % cap;
+                int indexInArray = hashCode / 8;
+                int byteIndex = hashCode % 8;
 
+                int amountToShift = 7 - byteIndex;
+                if (filter[indexInArray] >> amountToShift == 0) return false;
+            }
+
+            return true;
         }
     }
 }
