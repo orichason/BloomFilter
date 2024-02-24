@@ -15,9 +15,15 @@ namespace BloomFilter
             BloomFilter<string> bloomFilter = new(40, hashFunctions);
 
             bloomFilter.Insert("hello");
-            Console.WriteLine(bloomFilter.ProbablyContains("hello"));
+            bloomFilter.Insert("hi");
+            bloomFilter.Insert("bye");
+            bloomFilter.Insert("apple");
 
-            //TODO: test some more cases. Then unit test.
+            Console.WriteLine(bloomFilter.ProbablyContains("hello"));
+            Console.WriteLine(bloomFilter.ProbablyContains("apple"));
+            Console.WriteLine(bloomFilter.ProbablyContains("hi"));
+            Console.WriteLine(bloomFilter.ProbablyContains("bye"));
+
         }
     }
 }

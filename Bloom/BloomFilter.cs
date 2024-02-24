@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BloomFilter
 {
-    internal class BloomFilter<T>
+    public class BloomFilter<T>
     {
         int cap;
         byte[] filter;
@@ -41,7 +41,10 @@ namespace BloomFilter
                 int byteIndex = hashCode % 8;
 
                 int amountToShift = 7 - byteIndex;
-                if (filter[indexInArray] >> amountToShift == 0) return false;
+
+               // byte mask = (byte)(1 << amountToShift);
+                
+                if ((byte)((filter[indexInArray] >> amountToShift) & 1) == 0) return false;
             }
 
             return true;
