@@ -24,6 +24,9 @@ namespace BloomFilter
             Console.WriteLine(bloomFilter.ProbablyContains("hi"));
             Console.WriteLine(bloomFilter.ProbablyContains("bye"));
 
+
+
         }
+
     }
 }
